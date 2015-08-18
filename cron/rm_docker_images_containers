@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Remove unused contaienrs
+if [ -n "$(docker ps -a -q)" ]; then
+  docker rm $(docker ps -a -q)
+fi
+
+# Remove unused images
+if [ -n "$(docker images | awk '/^<none>/ { print $3 }')" ]; then
+  docker rmi $(docker images | awk '/^<none>/ { print $3 }')
+fi
+
